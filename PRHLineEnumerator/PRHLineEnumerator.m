@@ -24,6 +24,7 @@ static NSString *newline = @"\n";
 	self = [super init];
 	if(self) {
 		_scanner = [[NSScanner alloc] initWithString:theString];
+		_scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithRange:(NSRange){ 0, 0 }];
 	}
 	return self;
 }
