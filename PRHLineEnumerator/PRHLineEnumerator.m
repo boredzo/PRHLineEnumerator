@@ -22,14 +22,12 @@ static NSString *newline = @"\n";
 - initWithString:(NSString *)theString {
 	self = [super init];
 	if(self) {
-//		string = theString;
 		_scanner = [[NSScanner alloc] initWithString:theString];
 	}
 	return self;
 }
 
 - (NSString *)nextObject {
-//	NSUInteger loc = [_scanner scanLocation];
 	NSString *string = nil, *newlineString = nil;
 	bool scanUpToSucceeded, scanPastSucceeded;
 	scanUpToSucceeded = [_scanner scanUpToString:newline intoString:&string];
@@ -42,7 +40,6 @@ static NSString *newline = @"\n";
 	++_lineNumber;
 	[self didChangeValueForKey:@"lineNumber"];
 
-//	NSLog(@"%u@%u %u %u \"%@\"", lineNumber, loc, scanUpToSucceeded, scanPastSucceeded, string);
 	return string;
 }
 
