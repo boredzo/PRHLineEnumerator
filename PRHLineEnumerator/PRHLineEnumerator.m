@@ -13,8 +13,9 @@ static NSString *newline = @"\n";
 	NSScanner *_scanner;
 }
 
+//Just a compatibility synonym at this point, for people who were using this class before it required ARC.
 + (instancetype) enumeratorWithString:(NSString *)theString {
-	return [[self newWithString:theString] autorelease];
+	return [self newWithString:theString];
 }
 + (instancetype) newWithString:(NSString *)theString {
 	return [[self alloc] initWithString:theString];
