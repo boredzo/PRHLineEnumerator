@@ -30,9 +30,8 @@ static NSString *newline = @"\n";
 
 - (NSString *)nextObject {
 	NSString *string = nil, *newlineString = nil;
-	bool scanUpToSucceeded, scanPastSucceeded;
-	scanUpToSucceeded = [_scanner scanUpToString:newline intoString:&string];
-	scanPastSucceeded =  [_scanner scanString:newline intoString:&newlineString];
+	[_scanner scanUpToString:newline intoString:&string];
+	bool scanPastSucceeded = [_scanner scanString:newline intoString:&newlineString];
 
 	if(self.includesNewlines && scanPastSucceeded)
 		string = [string stringByAppendingString:newlineString];
