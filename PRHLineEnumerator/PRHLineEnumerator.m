@@ -6,8 +6,6 @@
 
 #import "PRHLineEnumerator.h"
 
-static NSString *newline = @"\n";
-
 @implementation PRHLineEnumerator
 {
 	NSScanner *_scanner;
@@ -31,8 +29,9 @@ static NSString *newline = @"\n";
 
 - (NSString *)nextObject {
 	NSString *string = nil, *newlineString = nil;
-	[_scanner scanUpToString:newline intoString:&string];
-	bool scanPastSucceeded = [_scanner scanString:newline intoString:&newlineString];
+	NSCharacterSet *newlineCharacterSet = [NSCharacterSet newlineCharacterSet];
+	[_scanner scanUpToCharactersFromSet:newlineCharacterSet intoString:&string];
+	bool scanPastSucceeded = [_scanner scanCharactersFromSet:newlineCharacterSet intoString:&newlineString];
 
 	if(self.includesNewlines && scanPastSucceeded)
 		string = [string stringByAppendingString:newlineString];
