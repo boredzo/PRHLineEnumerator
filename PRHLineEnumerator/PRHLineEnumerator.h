@@ -4,7 +4,7 @@
  *Copyright 2004-2008 Peter Hosey. All rights reserved.
  */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 //Bugs: only works with \n, not \r, \f, or Unicode's LINE SEPARATOR and PATH_SEPARATOR.
 
