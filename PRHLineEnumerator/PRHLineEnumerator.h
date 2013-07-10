@@ -11,9 +11,9 @@
 
 @interface PRHLineEnumerator: NSEnumerator
 
-+ enumeratorWithString:(NSString *)string;
-+ newWithString:(NSString *)string;
-- initWithString:(NSString *)string;
++ (instancetype) enumeratorWithString:(NSString *)string;
++ (instancetype) newWithString:(NSString *)string;
+- (instancetype) initWithString:(NSString *)string;
 
 //Default: YES.
 @property bool includesNewlines;

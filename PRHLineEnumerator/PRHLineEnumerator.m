@@ -13,13 +13,13 @@ static NSString *newline = @"\n";
 	NSScanner *_scanner;
 }
 
-+ enumeratorWithString:(NSString *)theString {
++ (instancetype) enumeratorWithString:(NSString *)theString {
 	return [[self newWithString:theString] autorelease];
 }
-+ newWithString:(NSString *)theString {
++ (instancetype) newWithString:(NSString *)theString {
 	return [[self alloc] initWithString:theString];
 }
-- initWithString:(NSString *)theString {
+- (instancetype) initWithString:(NSString *)theString {
 	self = [super init];
 	if(self) {
 		_scanner = [[NSScanner alloc] initWithString:theString];
