@@ -1,0 +1,3 @@
+[submodule "Warnings"]
+	path = Warnings
+	url = https://github.com/boredzo/Warnings-xcconfig.git
