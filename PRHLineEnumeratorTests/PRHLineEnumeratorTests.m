@@ -7,23 +7,53 @@
 //
 
 #import "PRHLineEnumeratorTests.h"
+#import "PRHLineEnumerator.h"
 
 @implementation PRHLineEnumeratorTests
 
-- (void) setUp {
-	[super setUp];
-
-	// Set-up code here.
+- (void) testReadingLinesIncludingTerminatorsFromStringThatEndsWithTerminator {
+	NSArray *lines = @[
+		@"foo\n",
+		@"bar\n",
+		@"bar\n",
+	];
+	[self testReadingLines:lines fromString:[lines componentsJoinedByString:@""] includeTerminators:true];
 }
 
-- (void) tearDown {
-	// Tear-down code here.
-
-	[super tearDown];
+- (void) testReadingLinesIncludingTerminatorsFromStringThatDoesNotEndWithTerminator {
+	NSArray *lines = @[
+		@"foo\n",
+		@"bar\n",
+		@"bar",
+	];
+	[self testReadingLines:lines fromString:[lines componentsJoinedByString:@""] includeTerminators:true];
 }
 
-- (void) testExample {
-	STFail(@"Unit tests are not implemented yet in PRHLineEnumeratorTests");
+- (void) testReadingLinesExcludingTerminatorsFromStringThatEndsWithTerminator {
+	NSArray *lines = @[
+		@"foo",
+		@"bar",
+		@"bar",
+	];
+	[self testReadingLines:lines
+	            fromString:[[lines componentsJoinedByString:@"\n"] stringByAppendingString:@"\n"]
+		includeTerminators:false];
+}
+
+- (void) testReadingLinesExcludingTerminatorsFromStringThatDoesNotEndWithTerminator {
+	NSArray *lines = @[
+		@"foo",
+		@"bar",
+		@"bar",
+	];
+	[self testReadingLines:lines fromString:[lines componentsJoinedByString:@"\n"] includeTerminators:false];
+}
+
+- (void) testReadingLines:(NSArray *)lines fromString:(NSString *)string includeTerminators:(bool)includeTerminators {
+	PRHLineEnumerator *lineEnum = [PRHLineEnumerator enumeratorWithString:string];
+	lineEnum.includesNewlines = includeTerminators;
+	NSArray *outputLines = [lineEnum allObjects];
+	STAssertEqualObjects(outputLines, lines, @"Got different lines than expected");
 }
 
 @end

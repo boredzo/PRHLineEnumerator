@@ -10,4 +10,9 @@
 
 @interface PRHLineEnumeratorTests : SenTestCase
 
+- (void) testReadingLinesIncludingTerminatorsFromStringThatEndsWithTerminator;
+- (void) testReadingLinesIncludingTerminatorsFromStringThatDoesNotEndWithTerminator;
+- (void) testReadingLinesExcludingTerminatorsFromStringThatEndsWithTerminator;
+- (void) testReadingLinesExcludingTerminatorsFromStringThatDoesNotEndWithTerminator;
+
 @end
