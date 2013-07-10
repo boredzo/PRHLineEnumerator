@@ -9,6 +9,9 @@
 static NSString *newline = @"\n";
 
 @implementation PRHLineEnumerator
+{
+	NSScanner *_scanner;
+}
 
 + enumeratorWithString:(NSString *)theString {
 	return [[self newWithString:theString] autorelease];
@@ -20,28 +23,27 @@ static NSString *newline = @"\n";
 	self = [super init];
 	if(self) {
 //		string = theString;
-		scanner = [[NSScanner alloc] initWithString:theString];
+		_scanner = [[NSScanner alloc] initWithString:theString];
 	}
 	return self;
 }
 
 - (NSString *)nextObject {
-//	unsigned loc = [scanner scanLocation];
+//	NSUInteger loc = [_scanner scanLocation];
 	NSString *string = nil, *newlineString = nil;
-	BOOL scanUpToSucceeded, scanPastSucceeded;
-	scanUpToSucceeded = [scanner scanUpToString:newline intoString:&string];
-	scanPastSucceeded =  [scanner scanString:newline intoString:&newlineString];
+	bool scanUpToSucceeded, scanPastSucceeded;
+	scanUpToSucceeded = [_scanner scanUpToString:newline intoString:&string];
+	scanPastSucceeded =  [_scanner scanString:newline intoString:&newlineString];
 
-	if(includesNewlines && scanPastSucceeded)
+	if(self.includesNewlines && scanPastSucceeded)
 		string = [string stringByAppendingString:newlineString];
 
-	++lineNumber;
+	[self willChangeValueForKey:@"lineNumber"];
+	++_lineNumber;
+	[self didChangeValueForKey:@"lineNumber"];
 
 //	NSLog(@"%u@%u %u %u \"%@\"", lineNumber, loc, scanUpToSucceeded, scanPastSucceeded, string);
 	return string;
-}
-- (unsigned)lineNumber {
-	return lineNumber;
 }
 
 @end
