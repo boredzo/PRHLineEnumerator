@@ -34,6 +34,23 @@ static NSString *const PS = @"\u2029";
 	return self;
 }
 
+- (instancetype) initWithFileURL:(NSURL *)URL error:(out NSError **)outError {
+	//TODO: Use NSInputStream.
+	NSData *data = [NSData dataWithContentsOfURL:URL options:NSDataReadingMappedIfSafe error:outError];
+	if (data != nil) {
+		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		if (string == nil) {
+			if (outError != NULL)
+				*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadInapplicableStringEncodingError userInfo:nil];
+			self = nil;
+		} else {
+			self = [self initWithString:string];
+		}
+	}
+
+	return self;
+}
+
 - (NSString *)nextObject {
 	NSString *string = nil, *newlineString = nil;
 	NSCharacterSet *newlineCharacterSet = [NSCharacterSet newlineCharacterSet];

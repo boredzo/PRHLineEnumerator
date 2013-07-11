@@ -13,6 +13,8 @@
 + (instancetype) newWithString:(NSString *)string;
 - (instancetype) initWithString:(NSString *)string;
 
+- (instancetype) initWithFileURL:(NSURL *)URL error:(out NSError **)outError;
+
 //Default: YES.
 @property bool includesNewlines;
 
