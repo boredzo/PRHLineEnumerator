@@ -6,6 +6,13 @@
 
 #import "PRHLineEnumerator.h"
 
+static NSString *const CRLF = @"\r\n";
+static NSString *const LF = @"\n";
+static NSString *const CR = @"\r";
+static NSString *const FF = @"\f";
+static NSString *const LS = @"\u2028";
+static NSString *const PS = @"\u2029";
+
 @implementation PRHLineEnumerator
 {
 	NSScanner *_scanner;
@@ -31,7 +38,17 @@
 	NSString *string = nil, *newlineString = nil;
 	NSCharacterSet *newlineCharacterSet = [NSCharacterSet newlineCharacterSet];
 	[_scanner scanUpToCharactersFromSet:newlineCharacterSet intoString:&string];
-	bool scanPastSucceeded = [_scanner scanCharactersFromSet:newlineCharacterSet intoString:&newlineString];
+	bool scanPastSucceeded = [_scanner scanString:CRLF intoString:&newlineString];
+	if (!scanPastSucceeded)
+		scanPastSucceeded = [_scanner scanString:LF intoString:&newlineString];
+	if (!scanPastSucceeded)
+		scanPastSucceeded = [_scanner scanString:CR intoString:&newlineString];
+	if (!scanPastSucceeded)
+		scanPastSucceeded = [_scanner scanString:FF intoString:&newlineString];
+	if (!scanPastSucceeded)
+		scanPastSucceeded = [_scanner scanString:LS intoString:&newlineString];
+	if (!scanPastSucceeded)
+		scanPastSucceeded = [_scanner scanString:PS intoString:&newlineString];
 
 	if(self.includesNewlines && scanPastSucceeded)
 		string = [string stringByAppendingString:newlineString];

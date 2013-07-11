@@ -7,8 +7,6 @@
 #include <stdbool.h>
 #import <Foundation/Foundation.h>
 
-//Bugs: only works with \n, not \r, \f, or Unicode's LINE SEPARATOR and PATH_SEPARATOR.
-
 @interface PRHLineEnumerator: NSEnumerator
 
 + (instancetype) enumeratorWithString:(NSString *)string;
