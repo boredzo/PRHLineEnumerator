@@ -50,8 +50,14 @@ static NSString *const PS = @"\u2029";
 	if (!scanPastSucceeded)
 		scanPastSucceeded = [_scanner scanString:PS intoString:&newlineString];
 
-	if(self.includesNewlines && scanPastSucceeded)
-		string = [string stringByAppendingString:newlineString];
+	if (scanPastSucceeded) {
+		//string may be nil if the scanner didn't scan anything. But, if we scanned a newline, that means we have scanned a blank line, not reached the end of the string.
+		if (string == nil)
+			string = @"";
+
+		if (self.includesNewlines)
+			string = [string stringByAppendingString:newlineString];
+	}
 
 	[self willChangeValueForKey:@"lineNumber"];
 	++_lineNumber;
