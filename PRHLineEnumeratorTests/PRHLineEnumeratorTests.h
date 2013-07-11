@@ -15,4 +15,10 @@
 - (void) testReadingLinesExcludingTerminatorsFromStringThatEndsWithTerminator;
 - (void) testReadingLinesExcludingTerminatorsFromStringThatDoesNotEndWithTerminator;
 
+- (void) testReadingLinesIncludingOneBlankLineIncludingTerminators;
+- (void) testReadingLinesIncludingOneBlankLineExcludingTerminators;
+
+- (void) testReadingLinesFromEmptyStringIncludingTerminators;
+- (void) testReadingLinesFromEmptyStringExcludingTerminators;
+
 @end

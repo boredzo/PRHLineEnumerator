@@ -49,6 +49,37 @@
 	[self testReadingLines:lines fromString:[lines componentsJoinedByString:@"\n"] includeTerminators:false];
 }
 
+- (void) testReadingLinesIncludingOneBlankLineIncludingTerminators {
+	NSArray *lines = @[
+		@"foo\n",
+		@"\n",
+		@"bar\n",
+	];
+	[self testReadingLines:lines fromString:[lines componentsJoinedByString:@""] includeTerminators:true];
+}
+
+- (void) testReadingLinesIncludingOneBlankLineExcludingTerminators {
+	NSArray *lines = @[
+		@"foo",
+		@"",
+		@"bar",
+	];
+	[self testReadingLines:lines
+	            fromString:[lines componentsJoinedByString:@"\n"]
+		includeTerminators:false];
+	[self testReadingLines:lines
+	            fromString:[[lines componentsJoinedByString:@"\n"] stringByAppendingString:@"\n"]
+		includeTerminators:false];
+}
+
+- (void) testReadingLinesFromEmptyStringIncludingTerminators {
+	[self testReadingLines:@[] fromString:@"" includeTerminators:true];
+}
+
+- (void) testReadingLinesFromEmptyStringExcludingTerminators {
+	[self testReadingLines:@[] fromString:@"" includeTerminators:false];
+}
+
 - (void) testReadingLines:(NSArray *)lines fromString:(NSString *)string includeTerminators:(bool)includeTerminators {
 	PRHLineEnumerator *lineEnum = [PRHLineEnumerator enumeratorWithString:string];
 	lineEnum.includesNewlines = includeTerminators;
