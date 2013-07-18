@@ -36,7 +36,7 @@ static NSString *const PS = @"\u2029";
 
 - (instancetype) initWithFileURL:(NSURL *)URL error:(out NSError **)outError {
 	//TODO: Use NSInputStream.
-	NSData *data = [NSData dataWithContentsOfURL:URL options:NSDataReadingMappedIfSafe error:outError];
+	NSData *data = [NSData dataWithContentsOfURL:URL options:NSDataReadingUncached error:outError];
 	if (data != nil) {
 		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 		if (string == nil) {
